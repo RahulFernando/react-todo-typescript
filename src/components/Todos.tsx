@@ -1,15 +1,16 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
+import { TodosContext } from '../store/todos-context'
 
 import TodoItem from './TodoItem';
 
-import Todo from '../models/todo';
-
 import classes from './Todos.module.css';
 
-const Todos: FC<{ items: Todo[] }> = (props) => {
+const Todos: FC = () => {
+  const { items } = useContext(TodosContext);
+
   return (
     <ul className={classes.todos}>
-      {props.items.map((item) => (
+      {items.map((item) => (
         <TodoItem key={item.id} item={item} />
       ))}
     </ul>
