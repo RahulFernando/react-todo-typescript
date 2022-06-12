@@ -1,24 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+
+import Todos from "./components/Todos";
+import NewTodo from "./components/NewTodo";
+
+import Todo from "./models/todo";
+import { useState } from "react";
+
+const DUMMY_TODOS = [new Todo("Learn React"), new Todo("Learn Typescript")];
 
 function App() {
+  const [todoList, setTodoList] = useState<Todo[]>(DUMMY_TODOS);
+
+  const addNewTodoHandler = (text: string) => {
+    setTodoList((prev) => [...prev, new Todo(text)]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <NewTodo onAddTodo={addNewTodoHandler} />
+      <Todos items={todoList} />
     </div>
   );
 }
